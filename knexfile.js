@@ -1,8 +1,6 @@
 require('dotenv').config();
 const path = require('path');
 
-const config = require('./config');
-
 const BASE_PATH = path.join(__dirname, 'src', 'db');
 
 function makeConfig(connection) {
