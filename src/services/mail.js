@@ -15,7 +15,7 @@ async function deliver(message) {
     const mailOptions = {
       from: '"Kittai Alert" <alert@kittai.com>',
       to: process.env.MAIL_RECEIVERS,
-      subject: message.title,
+      subject: `【${message.source}:${message.level}】${message.title}`,
       html: message.content
     };
     return transporter.sendMail(mailOptions);

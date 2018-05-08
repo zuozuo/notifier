@@ -7,7 +7,12 @@ async function deliver(message) {
   return Notifier.deliver(message, 'email', () => {
     const smsClient = smsPool.acquire();
     return smsClient.then(client => {
-      client.write(`${process.env.PHONES}@${message.title}, ${message.content}\r\n`);
+      let content = `
+      ${process.env.PHONES}@
+      【${message.source}:${message.level}】
+      ${message.title}, ${message.content}\r\n
+      `;
+      client.write(content);
     })
   })
 }
