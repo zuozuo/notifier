@@ -1,8 +1,7 @@
-# Building a RESTful API with Koa and Postgres
+```
+service postgresql initdbshell
+service postgresql start
+su - postgres -c "psql"
+```
 
-Project base...
-
-1. Fork/Clone
-1. Install dependencies - `npm install`
-1. Sanity check - `npm start`
-1. Test - `npm test`
+https://serverfault.com/questions/406606/postgres-error-message-fatal-ident-authentication-failed-for-user

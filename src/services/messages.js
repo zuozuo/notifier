@@ -3,7 +3,8 @@ mailService = require('./mail');
 baiduhiService = require('./baiduhi');
 
 function deliver(message) {
-  mailService.deliver(message);
+  smsService.deliver(message);
+  // mailService.deliver(message);
   // baiduhiService.deliver(message);
 }
 
