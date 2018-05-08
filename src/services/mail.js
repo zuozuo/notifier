@@ -1,0 +1,25 @@
+'use strict';
+
+const nodemailer = require('nodemailer');
+
+const Notifier = require('./notifier');
+
+async function deliver(message) {
+  return Notifier.deliver(message, 'email', () => {
+    const transporter = nodemailer.createTransport({
+      host: 'localhost',
+      port: 25,
+      secure: false,
+    });
+
+    const mailOptions = {
+      from: '"Kittai Alert" <alert@kittai.com>',
+      to: process.env.MAIL_RECEIVERS,
+      subject: message.title,
+      html: message.content
+    };
+    return transporter.sendMail(mailOptions);
+  })
+}
+
+module.exports = { deliver }
