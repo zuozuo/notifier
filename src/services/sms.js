@@ -9,7 +9,6 @@ async function deliver(message) {
     return smsClient.then(client => {
       let content = `
       ${process.env.PHONES}@
-      [${message.source}:${message.level}]
       ${message.title}, ${message.content}\r\n
       `;
       client.write(content);
