@@ -11,7 +11,7 @@ async function deliver(message) {
       method: 'POST',
       body: {
         msg_type: 'text',
-        content: message.title,
+        content: `${message.title}\n${message.content}`,
         to: parseInt(env.BAIDUHI_GROUP_ID)
       },
       uri: `${env.BAIDUHI_URL}?access_token=${env.BAIDUHI_TOKEN}`
