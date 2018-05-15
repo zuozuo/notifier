@@ -3,8 +3,8 @@
 const rp = require('request-promise');
 const Notifier = require('./notifier');
 
-async function deliver(message) {
-  return Notifier.deliver(message, 'baiduhi', () => {
+async function deliver(ctx, message) {
+  return Notifier.deliver(ctx, message, 'baiduhi', () => {
     let env = process.env;
     let content = `【${message.source}:${message.level}】${message.title}\n${message.content}`;
     let options = {

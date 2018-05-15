@@ -20,12 +20,3 @@ const opts = {
 
 const smsPool = genericPool.createPool(factory, opts);
 module.exports = smsPool;
-
-// const resourcePromise = myPool.acquire();
-// resourcePromise
-//   .then(function(client) {
-//     client.write('18601257148@world!\r\n');
-//   })
-//   .catch(function(err) {
-//     console.log(err);
-//   });

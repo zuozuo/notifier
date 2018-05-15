@@ -19,6 +19,7 @@
     "nodemon": "1.17.3"
   },
   "dependencies": {
+    "dateformat": "3.0.3",
     "dotenv": "5.0.1",
     "generic-pool": "3.4.2",
     "knex": "0.14.6",
@@ -29,6 +30,7 @@
     "pg": "7.4.1",
     "popsicle-retry": "3.2.1",
     "request": "2.85.0",
-    "request-promise": "4.2.2"
+    "request-promise": "4.2.2",
+    "uuid": "3.2.1"
   }
 }

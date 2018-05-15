@@ -4,8 +4,8 @@ const nodemailer = require('nodemailer');
 
 const Notifier = require('./notifier');
 
-async function deliver(message) {
-  return Notifier.deliver(message, 'email', () => {
+async function deliver(ctx, message) {
+  return Notifier.deliver(ctx, message, 'email', () => {
     const transporter = nodemailer.createTransport({
       host: 'localhost',
       port: 25,
