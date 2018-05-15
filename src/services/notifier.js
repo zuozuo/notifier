@@ -20,20 +20,20 @@ async function deliver(ctx, message, msgType, callback) {
   try {
     let res = await callback();
     response[msgType] = res;
-    if (res['errorcode'] === 0) {
-      ctx.log('INFO baiduhi response', res);
+    if (res['errorcode'] === 0 || res['response'].match('250 2.0.0 Ok')) {
+      ctx.log(`INFO ${msgType} response`, res);
       await Message.updateMessage(message.id, {
         success: true,
         response: JSON.stringify(response)
       });
       return true;
     } else {
-      ctx.error(`${msgType} ${res}`);
+      ctx.log(`ERROR ${msgType} response`, res);
       return this.retry(ctx, message, response, msgType, callback);
     }
   } catch(e) {
     response[msgType] = { error: e.toString() };
-    ctx.error(`${msgType} ${e}`);
+    ctx.log(`ERROR ${msgType} response`, res);
     return this.retry(ctx, message, response, msgType, callback)
   }
 }
