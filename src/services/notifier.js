@@ -18,7 +18,7 @@ async function deliver(ctx, message, msgType, callback) {
   let response = JSON.parse(message.response || '{}');
 
   try {
-    let res = callback();
+    let res = await callback();
     response[msgType] = res;
     if (res.success) {
       ctx.log(`INFO ${msgType} response`, res);
