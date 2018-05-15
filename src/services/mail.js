@@ -20,7 +20,9 @@ async function deliver(ctx, message) {
       subject: `【${message.source}:${message.level}】${message.title}`,
       html: message.content
     };
-    return transporter.sendMail(mailOptions);
+    let res = await transporter.sendMail(mailOptions);
+    res.success = !!res['response'].match('250 2.0.0 Ok');
+    return res;
   })
 }
 

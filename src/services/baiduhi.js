@@ -18,7 +18,11 @@ async function deliver(ctx, message) {
       },
       uri: `${env.BAIDUHI_URL}?access_token=${env.BAIDUHI_TOKEN}`
     };
-    return rp(options);
+    rp(options);
+
+    let res = await rp(options);
+    res['success'] = res['errorcode'] === 0
+    return res;
   })
 }
 

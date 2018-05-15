@@ -18,9 +18,9 @@ async function deliver(ctx, message, msgType, callback) {
   let response = JSON.parse(message.response || '{}');
 
   try {
-    let res = await callback();
+    let res = callback();
     response[msgType] = res;
-    if (res['errorcode'] === 0 || res['response'].match('250 2.0.0 Ok')) {
+    if (res.success) {
       ctx.log(`INFO ${msgType} response`, res);
       await Message.updateMessage(message.id, {
         success: true,
@@ -33,7 +33,7 @@ async function deliver(ctx, message, msgType, callback) {
     }
   } catch(e) {
     response[msgType] = { error: e.toString() };
-    ctx.log(`ERROR ${msgType} response`, res);
+    ctx.log(`ERROR ${msgType} response`, e);
     return this.retry(ctx, message, response, msgType, callback)
   }
 }
