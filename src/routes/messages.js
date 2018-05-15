@@ -6,7 +6,14 @@ const BASE_URL = `/notifier/messages`;
 const handler = require('./handler');
 
 router.post(`${BASE_URL}`, async (ctx) => {
-  let res = await handler.handleRequest(ctx, ctx.request.body);
+  let body = ctx.request.body;
+  let msgJson = {
+    title: body.title,
+    level: body.level,
+    source: body.source,
+    content: body.content,
+  }
+  let res = await handler.handleRequest(ctx, msgJson);
   ctx.body = res.body;
   ctx.status = res.status;
 })

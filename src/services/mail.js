@@ -12,9 +12,11 @@ async function deliver(ctx, message) {
       secure: false,
     });
 
+    let emails = ctx.request.body.emails || process.env.MAIL_RECEIVERS;
+
     const mailOptions = {
       from: '"Kittai Alert" <alert@kittai.com>',
-      to: process.env.MAIL_RECEIVERS,
+      to: emails,
       subject: `【${message.source}:${message.level}】${message.title}`,
       html: message.content
     };
