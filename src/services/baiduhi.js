@@ -4,7 +4,7 @@ const rp = require('request-promise');
 const Notifier = require('./notifier');
 
 async function deliver(ctx, message) {
-  return Notifier.deliver(ctx, message, 'baiduhi', () => {
+  let callback = async function() {
     let env = process.env;
     let content = `【${message.source}:${message.level}】${message.title}\n${message.content}`;
     let baiduhiGroupId = ctx.request.body.baiduhi_group_id || env.BAIDUHI_GROUP_ID;
@@ -23,7 +23,8 @@ async function deliver(ctx, message) {
     let res = await rp(options);
     res['success'] = res['errorcode'] === 0
     return res;
-  })
+  }
+  return Notifier.deliver(ctx, message, 'baiduhi', callback);
 }
 
 module.exports = { deliver }

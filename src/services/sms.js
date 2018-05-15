@@ -4,7 +4,7 @@ const smsPool = require('./sms_pool');
 const Notifier = require('./notifier');
 
 async function deliver(ctx, message) {
-  return Notifier.deliver(ctx, message, 'sms', () => {
+  let callback = async function() {
     const smsClient = smsPool.acquire();
     return smsClient.then(client => {
       let phones = ctx.request.body.phones || process.env.PHONES;
@@ -12,7 +12,8 @@ async function deliver(ctx, message) {
       client.write(content);
       return { success: true }
     })
-  })
+  }
+  return Notifier.deliver(ctx, message, 'sms', callback);
 }
 
 module.exports = { deliver }

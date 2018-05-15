@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const Notifier = require('./notifier');
 
 async function deliver(ctx, message) {
-  return Notifier.deliver(ctx, message, 'email', () => {
+  let callback = async function() {
     const transporter = nodemailer.createTransport({
       host: 'localhost',
       port: 25,
@@ -23,7 +23,9 @@ async function deliver(ctx, message) {
     let res = await transporter.sendMail(mailOptions);
     res.success = !!res['response'].match('250 2.0.0 Ok');
     return res;
-  })
+  }
+
+  return Notifier.deliver(ctx, message, 'email', callback);
 }
 
 module.exports = { deliver }
