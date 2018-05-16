@@ -11,7 +11,7 @@ async function deliver(ctx, message) {
       let summary = body.commonAnnotations.summary;
       let desc = body.commonAnnotations.description;
       let phones = body.phones || process.env.PHONES;
-      let content = `${phones}@${message.title}\r\n${summary}: ${description}\r\n`;
+      let content = `${phones}@${message.title}\r\n${summary}: ${desc}\r\n`;
       client.write(content);
       return { success: true }
     })
