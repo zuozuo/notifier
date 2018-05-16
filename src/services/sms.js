@@ -7,8 +7,11 @@ async function deliver(ctx, message) {
   let callback = async function() {
     const smsClient = smsPool.acquire();
     return smsClient.then(client => {
-      let phones = ctx.request.body.phones || process.env.PHONES;
-      let content = `${phones}@${message.title}\r\n${message.content}\r\n`;
+      let body = ctx.request.body;
+      let summary = body.commonAnnotations.summary;
+      let desc = body.commonAnnotations.description;
+      let phones = body.phones || process.env.PHONES;
+      let content = `${phones}@${message.title}\r\n${summary}: ${description}\r\n`;
       client.write(content);
       return { success: true }
     })
